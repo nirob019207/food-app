@@ -1,4 +1,8 @@
 import { MenuItem } from "@/types/MenuItem";
+import image1 from '@/assets/1.jpeg'
+import image2 from '@/assets/2.jpeg'
+import image3 from '@/assets/3.jpeg'
+import image4 from '@/assets/4.jpeg'
 
 export const menuData: MenuItem[] = [
   // Appetizers
@@ -8,7 +12,7 @@ export const menuData: MenuItem[] = [
     description: "Crispy risotto balls with truffle oil and parmesan",
     price: 18,
     category: "appetizers",
-     image: "https://nunforest.com/Food Store/upload/slide2.jpg",
+     image:image1,
   },
   {
     id: "2",
@@ -16,7 +20,7 @@ export const menuData: MenuItem[] = [
     description: "Fresh burrata with heirloom tomatoes and basil",
     price: 22,
     category: "appetizers",
-     image: "https://nunforest.com/Food Store/upload/slide2.jpg",
+     image:image2,
   },
   {
     id: "3",
@@ -24,7 +28,7 @@ export const menuData: MenuItem[] = [
     description: "Fresh tuna with avocado and citrus dressing",
     price: 26,
     category: "appetizers",
-     image: "https://nunforest.com/Food Store/upload/slide2.jpg",
+     image:image3,
   },
   // Main Courses
   {
@@ -33,7 +37,7 @@ export const menuData: MenuItem[] = [
     description: "Premium wagyu beef with roasted vegetables",
     price: 85,
     category: "mains",
-     image: "https://nunforest.com/Food Store/upload/slide2.jpg",
+     image:image4,
   },
   {
     id: "5",
@@ -41,7 +45,7 @@ export const menuData: MenuItem[] = [
     description: "Atlantic salmon with lemon herb butter",
     price: 32,
     category: "mains",
-     image: "https://nunforest.com/Food Store/upload/slide2.jpg",
+     image:image1,
   },
   {
     id: "6",
@@ -49,7 +53,7 @@ export const menuData: MenuItem[] = [
     description: "Creamy risotto with fresh lobster and herbs",
     price: 45,
     category: "mains",
-     image: "https://nunforest.com/Food Store/upload/slide2.jpg",
+     image:image2,
   },
   // Desserts
   {
@@ -58,7 +62,7 @@ export const menuData: MenuItem[] = [
     description: "Warm chocolate soufflé with vanilla ice cream",
     price: 16,
     category: "desserts",
-     image: "https://nunforest.com/Food Store/upload/slide2.jpg",
+     image:image3,
   },
   {
     id: "8",
@@ -66,7 +70,7 @@ export const menuData: MenuItem[] = [
     description: "Classic Italian tiramisu with espresso",
     price: 14,
     category: "desserts",
-     image: "https://nunforest.com/Food Store/upload/slide2.jpg",
+     image:image4,
   },
   {
     id: "9",
@@ -74,7 +78,7 @@ export const menuData: MenuItem[] = [
     description: "Vanilla custard with caramelized sugar",
     price: 12,
     category: "desserts",
-     image: "https://nunforest.com/Food Store/upload/slide2.jpg",
+     image:image1,
   },
   // Beverages
   {
@@ -83,7 +87,7 @@ export const menuData: MenuItem[] = [
     description: "Curated selection of red and white wines",
     price: 12,
     category: "beverages",
-     image: "https://nunforest.com/Food Store/upload/slide2.jpg",
+     image:image1,
   },
   {
     id: "11",
@@ -91,7 +95,7 @@ export const menuData: MenuItem[] = [
     description: "Signature cocktails made with premium spirits",
     price: 15,
     category: "beverages",
-     image: "https://nunforest.com/Food Store/upload/slide2.jpg",
+     image:image1,
   },
   {
     id: "12",
@@ -99,6 +103,6 @@ export const menuData: MenuItem[] = [
     description: "Freshly squeezed seasonal fruit juices",
     price: 8,
     category: "beverages",
-    image: "https://nunforest.com/Food Store/upload/slide2.jpg",
+     image:image1,
   },
 ]

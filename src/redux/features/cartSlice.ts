@@ -1,10 +1,11 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
+import { StaticImageData } from "next/image"
 
 export interface CartItem {
   id: string
   name: string
   price: number
-  image?: string
+  image?: StaticImageData
   quantity: number
   category: string
 }

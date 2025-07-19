@@ -79,7 +79,7 @@ export default function Menu() {
             >
               <div className="relative overflow-hidden">
                 <img
-                  src={item.image || "/placeholder.svg"}
+                  src={item.image.src || "/placeholder.svg"}
                   alt={item.name}
                   className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                 />

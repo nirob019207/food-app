@@ -1,5 +1,5 @@
 "use client"
-
+import banner from '@/assets/slide2.jpg'
 export default function Banner() {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -12,7 +12,7 @@ export default function Banner() {
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img
-          src="https://nunforest.com/Food Store/upload/slide2.jpg"
+          src={banner.src}
           alt="Restaurant Interior"
           className="w-full h-full object-cover"
         />
