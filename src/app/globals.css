@@ -1,0 +1,96 @@
+@import "tailwindcss";
+@plugin 'tailwindcss-animate';
+
+@custom-variant dark (&:is(.dark *));
+
+
+@theme {
+  /* Light Theme */
+  --color-background: #F5F7FA;
+  --color-foreground: #1A1A1A;
+  --color-primary: #2563EB;
+  --color-secondary: #1E40AF;
+  --color-success: #22C55E;
+  --color-info: #90e0ef;
+  --color-warning: #FACC15;
+  --color-danger: #d7191c;
+}
+
+@theme dark {
+  /* Dark Theme */
+  --color-background: #1A1A1A;
+  --color-foreground: #F5F7FA;
+  --color-primary: #2563EB;
+  --color-secondary: #1E40AF;
+  --color-success: #22C55E;
+  --color-info: #90e0ef;
+  --color-warning: #FACC15;
+  --color-danger: #d7191c;
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= --theme(--breakpoint-sm)) {
+    max-width: none;
+  }
+  @media (width >= 1440px) {
+    max-width: 1440px;
+  }
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+/* Remove the banner at top of the page */
+body {
+  top: 0 !important;
+  position: static !important;
+}
+
+body .skiptranslate {
+  display: none !important;
+}
+
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+.VIpgJd-ZVi9od-ORHb-OEVmcd.skiptranslate {
+  visibility: hidden !important;
+  height: 0 !important;
+  position: absolute !important;
+  top: 0 !important;
+}
+
+/*  Custom upload styles and hover */
+.ant-upload-wrapper :hover.ant-upload-drag {
+  border-color: var(--color-primary) !important;
+}
+
+/* Custom pagination styles */
+.custom-pagination .ant-pagination-item-active {
+  border-color: var(--color-primary) !important;
+}
+.custom-pagination .ant-pagination-item-active a {
+  color: var(--color-primary) !important;
+}
+
+.custom-pagination .ant-pagination-item:hover {
+  background-color: var(--color-primary) !important;
+}
+
+.custom-pagination .ant-pagination-item:hover a {
+  color: white !important;
+}
+
+.custom-spinner .ant-spin-dot {
+  color: var(--color-primary) !important;
+}
