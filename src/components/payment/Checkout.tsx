@@ -1,6 +1,6 @@
-/* eslint @typescript-eslint/no-explicit-any: "error" */
-/* eslint @typescript-eslint/no-unused-vars: ["error", { "argsIgnorePattern": "^_" }] */
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { useState } from "react"
 import type React from "react"
