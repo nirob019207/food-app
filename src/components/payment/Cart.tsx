@@ -1,19 +1,58 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
 import { Minus, Plus, Trash2, ArrowLeft, ShoppingBag } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
+import Cookies from "js-cookie"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { clearCart, removeFromCart, updateQuantity } from "@/redux/features/cartSlice"
 
+// Modal component for login prompt
+const LoginModal = ({ isOpen, onClose, onContinueAsGuest }: { isOpen: boolean, onClose: () => void, onContinueAsGuest: () => void }) => {
+  if (!isOpen) return null
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg p-6 max-w-sm w-full">
+        <h2 className="text-xl font-bold mb-4">Login Required</h2>
+        <p className="text-gray-600 mb-6">Please log in to proceed with checkout, or continue as a guest.</p>
+        <div className="flex gap-4">
+          <Button
+            onClick={() => window.location.href = "/login"}
+            className="bg-amber-500 hover:bg-amber-600 text-white flex-1"
+          >
+            Log In
+          </Button>
+          <Button
+            onClick={onContinueAsGuest}
+            variant="outline"
+            className="flex-1"
+          >
+            Continue as Guest
+          </Button>
+        </div>
+        <Button
+          variant="ghost"
+          onClick={onClose}
+          className="mt-4 w-full text-gray-600"
+        >
+          Cancel
+        </Button>
+      </div>
+    </div>
+  )
+}
+
 export default function Cart() {
   const router = useRouter()
   const dispatch = useAppDispatch()
-  const { items, total, itemCount } = useAppSelector((state:any) => state.cart)
+  const { items, total, itemCount } = useAppSelector((state: any) => state.cart)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleQuantityChange = (id: string, newQuantity: number) => {
     if (newQuantity < 1) {
@@ -30,8 +69,7 @@ export default function Cart() {
   }
 
   const handleClearCart = () => {
-    dispatch(clearCart
-        ())
+    dispatch(clearCart())
     toast.success("Cart cleared")
   }
 
@@ -40,7 +78,21 @@ export default function Cart() {
       toast.error("Your cart is empty")
       return
     }
-    router.push("/checkout")
+
+    const accessToken = Cookies.get("accessToken")
+    
+    if (accessToken) {
+      // User is authenticated, proceed to checkout
+      router.push("/checkout")
+    } else {
+      // Show login modal for anonymous users
+      setIsModalOpen(true)
+    }
+  }
+
+  const handleContinueAsGuest = () => {
+    setIsModalOpen(false)
+    router.push("/checkout") // Redirect to placeholder page for anonymous users
   }
 
   if (items.length === 0) {
@@ -94,7 +146,7 @@ export default function Cart() {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-4">
-            {items?.map((item:any) => (
+            {items?.map((item: any) => (
               <Card key={item.id} className="overflow-hidden">
                 <CardContent className="p-6">
                   <div className="flex gap-4">
@@ -143,8 +195,8 @@ export default function Cart() {
                         </div>
 
                         <div className="text-right">
-                          <p className="text-lg font-bold text-amber-600">${(item.price * item.quantity).toFixed(2)}</p>
-                          <p className="text-sm text-gray-500">${item.price.toFixed(2)} each</p>
+                          <p className="text-lg font-bold text-amber-600">৳ {(item.price * item.quantity).toFixed(2)}</p>
+                          <p className="text-sm text-gray-500">৳ {item.price.toFixed(2)} each</p>
                         </div>
                       </div>
                     </div>
@@ -163,24 +215,14 @@ export default function Cart() {
               <CardContent className="space-y-4">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Items ({itemCount})</span>
-                  <span className="font-medium">${total.toFixed(2)}</span>
-                </div>
-
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Delivery Fee</span>
-                  <span className="font-medium">$3.99</span>
-                </div>
-
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Tax</span>
-                  <span className="font-medium">${(total * 0.08).toFixed(2)}</span>
+                  <span className="font-medium">৳ {total.toFixed(2)}</span>
                 </div>
 
                 <hr className="my-4" />
 
                 <div className="flex justify-between text-lg font-bold">
                   <span>Total</span>
-                  <span className="text-amber-600">${(total + 3.99 + total * 0.08).toFixed(2)}</span>
+                  <span className="text-amber-600">৳ {total.toFixed(2)}</span>
                 </div>
 
                 <Button
@@ -198,6 +240,13 @@ export default function Cart() {
             </Card>
           </div>
         </div>
+
+        {/* Login Modal */}
+        <LoginModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onContinueAsGuest={handleContinueAsGuest}
+        />
       </div>
     </div>
   )

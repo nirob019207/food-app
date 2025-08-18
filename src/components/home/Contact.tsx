@@ -11,129 +11,69 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="mx-auto flex justify-center gap-8 flex-wrap">
           <div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">Get in Touch</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Get in Touch</h3>
 
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="bg-amber-500 p-3 rounded-full">
-                  <MapPin className="text-white" size={20} />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">Address</h4>
-                  <p className="text-gray-600">
-                    123 Culinary Street, Gourmet District
-                    <br />
-                    New York, NY 10001
-                  </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <div className="flex flex-col items-center">
+                  <div className="bg-amber-500 p-3 rounded-full mb-4">
+                    <MapPin className="text-white" size={20} />
+                  </div>
+                  <div className="text-center">
+                    <h4 className="font-semibold text-gray-900">Address</h4>
+                    <p className="text-gray-600">
+                      123 Culinary Street, Gourmet District
+                      <br />
+                      New York, NY 10001
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4">
-                <div className="bg-amber-500 p-3 rounded-full">
-                  <Phone className="text-white" size={20} />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">Phone</h4>
-                  <p className="text-gray-600">(555) 123-4567</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="bg-amber-500 p-3 rounded-full">
-                  <Mail className="text-white" size={20} />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">Email</h4>
-                  <p className="text-gray-600">reservations@Food Store-restaurant.com</p>
+              <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <div className="flex flex-col items-center">
+                  <div className="bg-amber-500 p-3 rounded-full mb-4">
+                    <Phone className="text-white" size={20} />
+                  </div>
+                  <div className="text-center">
+                    <h4 className="font-semibold text-gray-900">Phone</h4>
+                    <p className="text-gray-600">(555) 123-4567</p>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4">
-                <div className="bg-amber-500 p-3 rounded-full">
-                  <Clock className="text-white" size={20} />
+              <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <div className="flex flex-col items-center">
+                  <div className="bg-amber-500 p-3 rounded-full mb-4">
+                    <Mail className="text-white" size={20} />
+                  </div>
+                  <div className="text-center">
+                    <h4 className="font-semibold text-gray-900">Email</h4>
+                    <p className="text-gray-600">reservations@Food Store-restaurant.com</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">Hours</h4>
-                  <p className="text-gray-600">
-                    Monday - Thursday: 5:00 PM - 10:00 PM
-                    <br />
-                    Friday - Saturday: 5:00 PM - 11:00 PM
-                    <br />
-                    Sunday: 4:00 PM - 9:00 PM
-                  </p>
+              </div>
+
+              <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <div className="flex flex-col items-center">
+                  <div className="bg-amber-500 p-3 rounded-full mb-4">
+                    <Clock className="text-white" size={20} />
+                  </div>
+                  <div className="text-center">
+                    <h4 className="font-semibold text-gray-900">Hours</h4>
+                    <p className="text-gray-600">
+                      Monday - Thursday: 5:00 PM - 10:00 PM
+                      <br />
+                      Friday - Saturday: 5:00 PM - 11:00 PM
+                      <br />
+                      Sunday: 4:00 PM - 9:00 PM
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">Make a Reservation</h3>
-
-            <form className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all"
-                />
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all"
-                />
-              </div>
-
-              <input
-                type="email"
-                placeholder="Email Address"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all"
-              />
-
-              <input
-                type="tel"
-                placeholder="Phone Number"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all"
-              />
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input
-                  type="date"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all"
-                />
-                <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all">
-                  <option>Select Time</option>
-                  <option>5:00 PM</option>
-                  <option>6:00 PM</option>
-                  <option>7:00 PM</option>
-                  <option>8:00 PM</option>
-                  <option>9:00 PM</option>
-                </select>
-              </div>
-
-              <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all">
-                <option>Number of Guests</option>
-                <option>1 Guest</option>
-                <option>2 Guests</option>
-                <option>3 Guests</option>
-                <option>4 Guests</option>
-                <option>5+ Guests</option>
-              </select>
-
-              <textarea
-                placeholder="Special Requests (Optional)"
-                rows={4}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all resize-none"
-              ></textarea>
-
-              <button
-                type="submit"
-                className="w-full bg-amber-500 hover:bg-amber-600 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 transform hover:scale-105"
-              >
-                Make Reservation
-              </button>
-            </form>
           </div>
         </div>
       </div>

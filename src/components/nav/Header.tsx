@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { useState, useEffect } from "react"
-import { Menu, X, ShoppingCart } from 'lucide-react'
+import { Menu, X, ShoppingCart, LayoutDashboard } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useAppSelector } from "@/redux/hooks"
 
@@ -10,8 +10,8 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("home")
   const router = useRouter()
-  
-  const { itemCount } = useAppSelector((state:any) => state.cart)
+  const { token } = useAppSelector((state: any) => state.auth)
+  const { itemCount } = useAppSelector((state: any) => state.cart)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,6 +45,22 @@ export default function Header() {
 
   const handleCartClick = () => {
     router.push('/cart')
+    setIsMenuOpen(false)
+  }
+
+  const handleLoginClick = () => {
+    router.push('/login')
+    setIsMenuOpen(false)
+  }
+
+  const handleRegisterClick = () => {
+    router.push('/register')
+    setIsMenuOpen(false)
+  }
+
+  const handleDashboardClick = () => {
+    router.push('/dashboard')
+    setIsMenuOpen(false)
   }
 
   return (
@@ -72,6 +88,29 @@ export default function Header() {
                   {item}
                 </button>
               ))}
+              {token ? (
+                <button
+                  onClick={handleDashboardClick}
+                  className="px-3 py-2 text-sm font-medium text-white hover:text-amber-400 transition-colors"
+                >
+                  Dashboard
+                </button>
+              ) : (
+                <div className="flex gap-3">
+                  <button
+                    onClick={handleLoginClick}
+                    className="px-3 py-2 text-sm font-medium text-white hover:text-amber-400 transition-colors"
+                  >
+                    Login
+                  </button>
+                  <button
+                    onClick={handleRegisterClick}
+                    className="px-3 py-2 text-sm font-medium text-white hover:text-amber-400 transition-colors"
+                  >
+                    Register
+                  </button>
+                </div>
+              )}
             </div>
           </div>
           
@@ -115,6 +154,29 @@ export default function Header() {
                 {item}
               </button>
             ))}
+            {token ? (
+              <button
+                onClick={handleDashboardClick}
+                className="block px-3 py-2 text-base font-medium text-white hover:text-amber-400 hover:bg-white/10 transition-colors w-full text-left rounded-lg"
+              >
+                Dashboard
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={handleLoginClick}
+                  className="block px-3 py-2 text-base font-medium text-white hover:text-amber-400 hover:bg-white/10 transition-colors w-full text-left rounded-lg"
+                >
+                  Login
+                </button>
+                <button
+                  onClick={handleRegisterClick}
+                  className="block px-3 py-2 text-base font-medium text-white hover:text-amber-400 hover:bg-white/10 transition-colors w-full text-left rounded-lg"
+                >
+                  Register
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}
