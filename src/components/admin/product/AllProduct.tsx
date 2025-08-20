@@ -152,9 +152,7 @@ export default function AllProduct() {
     return <div className="text-center py-4">Loading...</div>;
   }
 
-  if (!products?.data || products.data.length === 0) {
-    return <div className="text-center py-4">No products found</div>;
-  }
+
 
   return (
     <div className="container mx-auto p-4">
