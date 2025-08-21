@@ -11,6 +11,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { clearCart, removeFromCart, updateQuantity } from "@/redux/features/cartSlice"
+import { useLazyGetGetDeliveryChargeQuery } from "@/redux/api/deliveryApi"
+
 
 // Modal component for login prompt
 const LoginModal = ({ isOpen, onClose, onContinueAsGuest }: { isOpen: boolean, onClose: () => void, onContinueAsGuest: () => void }) => {
@@ -53,6 +55,8 @@ export default function Cart() {
   const dispatch = useAppDispatch()
   const { items, total, itemCount } = useAppSelector((state: any) => state.cart)
   const [isModalOpen, setIsModalOpen] = useState(false)
+    const [triggerGetDeliveryCharge, { data: deliveryData, isLoading, isError }] = useLazyGetGetDeliveryChargeQuery()
+
 
   const handleQuantityChange = (id: string, newQuantity: number) => {
     if (newQuantity < 1) {
@@ -73,20 +77,32 @@ export default function Cart() {
     toast.success("Cart cleared")
   }
 
-  const handleCheckout = () => {
+   const handleCheckout = async () => {
     if (items.length === 0) {
       toast.error("Your cart is empty")
       return
     }
 
-    const accessToken = Cookies.get("accessToken")
-    
-    if (accessToken) {
-      // User is authenticated, proceed to checkout
-      router.push("/checkout")
-    } else {
-      // Show login modal for anonymous users
-      setIsModalOpen(true)
+    try {
+      // Trigger the API call with the total amount
+      const response = await triggerGetDeliveryCharge(total).unwrap()
+      
+      // Store delivery charge in local storage
+      if (response?.data?.deliveryCharge) {
+        localStorage.setItem("deliveryCharge", response?.data?.deliveryCharge.toString())
+      }
+
+      const accessToken = Cookies.get("accessToken")
+      
+      if (accessToken) {
+        // User is authenticated, proceed to checkout
+        router.push("/checkout")
+      } else {
+        // Show login modal for anonymous users
+        setIsModalOpen(true)
+      }
+    } catch (error) {
+      
     }
   }
 

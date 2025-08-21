@@ -6,7 +6,7 @@ import type React from "react"
 import { ArrowLeft, Wallet } from "lucide-react"
 import { useRouter } from "next/navigation"
 import Cookies from "js-cookie"
-import {jwtDecode} from "jwt-decode"
+import { jwtDecode } from "jwt-decode"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -41,6 +41,9 @@ export default function CheckoutPage() {
     phoneNumber: "",
   })
 
+  // Retrieve delivery charge from local storage
+  const deliveryCharge = parseFloat(localStorage.getItem("deliveryCharge") || "0")
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({
@@ -61,7 +64,7 @@ export default function CheckoutPage() {
       return
     }
 
-    // Prepare order data based on provided payload structure
+    // Prepare order data (excluding delivery fee)
     const orderData: {
       fullName: string;
       address: string;
@@ -83,8 +86,8 @@ export default function CheckoutPage() {
     if (accessToken) {
       try {
         const decoded: DecodedToken = jwtDecode(accessToken)
-        if (decoded.userId) {
-          orderData.userId = decoded.userId
+        if (decoded.id) {
+          orderData.userId = decoded.id
         }
       } catch (error) {
         console.warn("Failed to decode access token:", error)
@@ -96,13 +99,15 @@ export default function CheckoutPage() {
 
     // Show loading toast
     const toastId = toast.loading("Processing your order...")
+    console.log(orderData)
 
     try {
       // Call createOrder API
       await createOrder(orderData).unwrap()
 
-      // Clear cart after successful order
+      // Clear cart and delivery charge after successful order
       dispatch(clearCart())
+      localStorage.removeItem("deliveryCharge")
 
       // Show success toast
       toast.success("Order placed successfully!", {
@@ -252,13 +257,17 @@ export default function CheckoutPage() {
                     <span className="text-gray-600">Subtotal ({itemCount} items)</span>
                     <span>৳ {total.toFixed(2)}</span>
                   </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Delivery Charge</span>
+                    <span>৳ {deliveryCharge.toFixed(2)}</span>
+                  </div>
                 </div>
 
                 <hr />
 
                 <div className="flex justify-between text-lg font-bold">
                   <span>Total</span>
-                  <span className="text-amber-600">৳ {total.toFixed(2)}</span>
+                  <span className="text-amber-600">৳ {(total + deliveryCharge).toFixed(2)}</span>
                 </div>
 
                 <Button

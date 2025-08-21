@@ -10,7 +10,8 @@ import {
   MdCategory, 
   MdFastfood, 
   MdShoppingCart, 
-  MdPerson 
+  MdPerson, 
+  MdDriveFileMoveOutline
 } from "react-icons/md";
 import { Button } from "../ui/button";
 import { useRouter } from 'next/navigation';
@@ -55,6 +56,8 @@ export default function Sidebar() {
     { icon: <MdCategory className="w-5 h-5" />, href: "/category", label: "Categories", roles: ['ADMIN', 'SUPERADMIN'] },
     { icon: <MdFastfood className="w-5 h-5" />, href: "/product", label: "Products", roles: ['ADMIN', 'SUPERADMIN'] },
     { icon: <MdShoppingCart className="w-5 h-5" />, href: "/allOrder", label: "Orders", roles: ['ADMIN', 'SUPERADMIN'] },
+        { icon: <MdDriveFileMoveOutline className="w-5 h-5" />, href: "/allDelivery", label: "Delivery Fee", roles: ['ADMIN', 'SUPERADMIN'] },
+
     { icon: <MdPerson className="w-5 h-5" />, href: "/myorder", label: "My Orders", roles: ['USER', ] },
   ];
 
