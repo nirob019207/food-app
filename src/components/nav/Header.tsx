@@ -5,6 +5,8 @@ import { useState, useEffect } from "react"
 import { Menu, X, ShoppingCart, LayoutDashboard } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useAppSelector } from "@/redux/hooks"
+import Image from "next/image"
+import logo from "@/assets/logo.png" // Ensure this path is correct
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -64,12 +66,14 @@ export default function Header() {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-sm transition-all duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-sm transition-all duration-300">
+      <div className="bg-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
-            <button onClick={() => scrollToSection("home")} className="text-2xl font-bold text-white hover:text-amber-400 transition-colors">
-              Food Store
+            <button onClick={() => scrollToSection("home")} className="text-2xl font-bold text-black hover:text-amber-400 transition-colors">
+            <Image
+              src={logo}   alt="dkd" width={50} height={50}/> 
             </button>
           </div>
           
@@ -82,7 +86,7 @@ export default function Header() {
                   className={`px-3 py-2 text-sm font-medium transition-colors duration-200 capitalize ${
                     activeSection === item
                       ? "text-amber-400 border-b-2 border-amber-400"
-                      : "text-white hover:text-amber-400"
+                      : "text-black hover:text-amber-400"
                   }`}
                 >
                   {item}
@@ -91,7 +95,7 @@ export default function Header() {
               {token ? (
                 <button
                   onClick={handleDashboardClick}
-                  className="px-3 py-2 text-sm font-medium text-white hover:text-amber-400 transition-colors"
+                  className="px-3 py-2 text-sm font-medium text-black hover:text-amber-400 transition-colors"
                 >
                   Dashboard
                 </button>
@@ -99,13 +103,13 @@ export default function Header() {
                 <div className="flex gap-3">
                   <button
                     onClick={handleLoginClick}
-                    className="px-3 py-2 text-sm font-medium text-white hover:text-amber-400 transition-colors"
+                    className="px-3 py-2 text-sm font-medium text-black hover:text-amber-400 transition-colors"
                   >
                     Login
                   </button>
                   <button
                     onClick={handleRegisterClick}
-                    className="px-3 py-2 text-sm font-medium text-white hover:text-amber-400 transition-colors"
+                    className="px-3 py-2 text-sm font-medium text-black hover:text-amber-400 transition-colors"
                   >
                     Register
                   </button>
@@ -117,7 +121,7 @@ export default function Header() {
           <div className="flex items-center space-x-4">
             <button 
               onClick={handleCartClick}
-              className="relative text-white hover:text-amber-400 transition-colors p-2 rounded-lg hover:bg-white/10"
+              className="relative text-black hover:text-amber-400 transition-colors p-2 rounded-lg hover:bg-white/10"
               aria-label="Shopping cart"
             >
               <ShoppingCart size={24} />
@@ -131,7 +135,7 @@ export default function Header() {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-white hover:text-amber-400 transition-colors p-2"
+                className="text-black hover:text-amber-400 transition-colors p-2"
                 aria-label="Toggle menu"
               >
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -139,6 +143,7 @@ export default function Header() {
             </div>
           </div>
         </div>
+      </div>
       </div>
 
       {/* Mobile menu */}
@@ -149,7 +154,7 @@ export default function Header() {
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className="block px-3 py-2 text-base font-medium text-white hover:text-amber-400 hover:bg-white/10 transition-colors capitalize w-full text-left rounded-lg"
+                className="block px-3 py-2 text-base font-medium text-black hover:text-amber-400 hover:bg-white/10 transition-colors capitalize w-full text-left rounded-lg"
               >
                 {item}
               </button>
@@ -157,7 +162,7 @@ export default function Header() {
             {token ? (
               <button
                 onClick={handleDashboardClick}
-                className="block px-3 py-2 text-base font-medium text-white hover:text-amber-400 hover:bg-white/10 transition-colors w-full text-left rounded-lg"
+                className="block px-3 py-2 text-base font-medium text-black hover:text-amber-400 hover:bg-white/10 transition-colors w-full text-left rounded-lg"
               >
                 Dashboard
               </button>
@@ -165,13 +170,13 @@ export default function Header() {
               <>
                 <button
                   onClick={handleLoginClick}
-                  className="block px-3 py-2 text-base font-medium text-white hover:text-amber-400 hover:bg-white/10 transition-colors w-full text-left rounded-lg"
+                  className="block px-3 py-2 text-base font-medium text-black hover:text-amber-400 hover:bg-white/10 transition-colors w-full text-left rounded-lg"
                 >
                   Login
                 </button>
                 <button
                   onClick={handleRegisterClick}
-                  className="block px-3 py-2 text-base font-medium text-white hover:text-amber-400 hover:bg-white/10 transition-colors w-full text-left rounded-lg"
+                  className="block px-3 py-2 text-base font-medium text-black hover:text-amber-400 hover:bg-white/10 transition-colors w-full text-left rounded-lg"
                 >
                   Register
                 </button>

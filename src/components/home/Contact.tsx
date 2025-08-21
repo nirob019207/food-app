@@ -15,7 +15,7 @@ export default function Contact() {
           <div>
             <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Get in Touch</h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 mx-auto gap-6">
               <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
                 <div className="flex flex-col items-center">
                   <div className="bg-amber-500 p-3 rounded-full mb-4">
@@ -24,9 +24,7 @@ export default function Contact() {
                   <div className="text-center">
                     <h4 className="font-semibold text-gray-900">Address</h4>
                     <p className="text-gray-600">
-                      123 Culinary Street, Gourmet District
-                      <br />
-                      New York, NY 10001
+                     Bashundhara, Dhaka, Bangladesh
                     </p>
                   </div>
                 </div>
@@ -39,7 +37,7 @@ export default function Contact() {
                   </div>
                   <div className="text-center">
                     <h4 className="font-semibold text-gray-900">Phone</h4>
-                    <p className="text-gray-600">(555) 123-4567</p>
+                    <p className="text-gray-600">01711-090470</p>
                   </div>
                 </div>
               </div>
@@ -51,12 +49,12 @@ export default function Contact() {
                   </div>
                   <div className="text-center">
                     <h4 className="font-semibold text-gray-900">Email</h4>
-                    <p className="text-gray-600">reservations@Food Store-restaurant.com</p>
+                    <p className="text-gray-600">latenightfoodbashundhara@gmail.com</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+              {/* <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
                 <div className="flex flex-col items-center">
                   <div className="bg-amber-500 p-3 rounded-full mb-4">
                     <Clock className="text-white" size={20} />
@@ -72,7 +70,7 @@ export default function Contact() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

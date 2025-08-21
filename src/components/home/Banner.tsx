@@ -21,7 +21,7 @@ export default function Banner() {
 
       <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-          Welcome to <span className="text-amber-400">Food Store</span>
+          Welcome to <span className="text-amber-400">Late Night Food Bashundhara</span>
         </h1>
         <p className="text-xl md:text-2xl mb-8 font-light">
           Experience culinary excellence in an atmosphere of refined elegance
