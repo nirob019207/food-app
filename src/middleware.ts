@@ -15,6 +15,7 @@ interface DecodedToken {
 export function middleware(request: NextRequest) {
   const token = request.cookies.get("accessToken")?.value;
   const loginUrl = new URL("/login", request.url);
+  
 
   // If there's no token, redirect to login
   if (!token) {
