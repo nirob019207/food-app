@@ -24,10 +24,7 @@ export function middleware(request: NextRequest) {
   try {
     const decoded = jwtDecode<DecodedToken>(token);
 
-    // If token expired, redirect to login
-    if (decoded.exp * 1000 < Date.now()) {
-      return NextResponse.redirect(loginUrl);
-    }
+  
 
     const { pathname } = request.nextUrl;
 
