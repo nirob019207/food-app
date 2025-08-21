@@ -51,7 +51,7 @@ export default function Sidebar() {
 
   // Define navLinks with specific icons
   const navLinks = [
-    { icon: <MdOutlineDashboard className="w-5 h-5" />, href: "/dashboard", label: "Dashboard", roles: ['USER', 'ADMIN', 'SUPERADMIN'] },
+    { icon: <MdOutlineDashboard className="w-5 h-5" />, href: "/dashboard", label: "Dashboard", roles: ['ADMIN', 'SUPERADMIN'] },
     { icon: <MdCategory className="w-5 h-5" />, href: "/category", label: "Categories", roles: ['ADMIN', 'SUPERADMIN'] },
     { icon: <MdFastfood className="w-5 h-5" />, href: "/product", label: "Products", roles: ['ADMIN', 'SUPERADMIN'] },
     { icon: <MdShoppingCart className="w-5 h-5" />, href: "/allOrder", label: "Orders", roles: ['ADMIN', 'SUPERADMIN'] },
