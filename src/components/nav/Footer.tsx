@@ -16,7 +16,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 mx-auto gap-8">
           <div>
             <h3 className="text-2xl font-bold mb-4">
-              <Image src="https://nyc3.digitaloceanspaces.com/smtech-space/files/d330a925-4680-435a-92b2-ecad3674ab9b.png" alt="Logo" width={40} height={40}  />
+<img src="https://nyc3.digitaloceanspaces.com/smtech-space/files/d330a925-4680-435a-92b2-ecad3674ab9b.png" alt="dkd" width="50" height="50" />
             </h3>
             <p className="text-gray-400 mb-4">Experience culinary excellence in an atmosphere of refined elegance.</p>
             <div className="flex space-x-4">
