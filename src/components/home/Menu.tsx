@@ -131,7 +131,7 @@ export default function Menu() {
                     {item.name}
                   </h3>
                   <span className="text-xl font-bold text-amber-500">
-                    ${item.price.toFixed(2)}
+                    ৳ {item.price.toFixed(2)}
                   </span>
                 </div>
                 <p className="text-gray-600 mb-4 leading-relaxed">

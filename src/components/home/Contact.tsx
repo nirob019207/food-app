@@ -7,7 +7,7 @@ export default function Contact() {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Contact Us</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Ready to experience Food Store? Make a reservation or get in touch with us today.
+            Ready to experience Late Night Food Bashundhara? Make a reservation or get in touch with us today.
           </p>
         </div>
 

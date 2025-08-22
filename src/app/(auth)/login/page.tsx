@@ -55,7 +55,7 @@ export default function Login() {
         <div className="flex justify-center mb-6">
           <LogIn size={48} className="text-amber-400" />
         </div>
-        <h2 className="text-2xl font-bold text-white text-center mb-6">Login to Food Store</h2>
+        <h2 className="text-2xl font-bold text-white text-center mb-6">Login to Late Night Food Bashundhara</h2>
         
         {error && (
           <div className="mb-4 text-red-500 text-sm text-center">

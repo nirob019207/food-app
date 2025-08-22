@@ -53,7 +53,7 @@ export default function Register() {
         <div className="flex justify-center mb-6">
           <UserPlus size={48} className="text-amber-400" />
         </div>
-        <h2 className="text-2xl font-bold text-white text-center mb-6">Register for Food Store</h2>
+        <h2 className="text-2xl font-bold text-white text-center mb-6">Register for Late Night Food Bashundhara</h2>
         
       
         

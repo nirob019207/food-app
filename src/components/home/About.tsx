@@ -8,7 +8,7 @@ export default function About() {
           <div>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Story</h2>
             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              Founded in 2010, Food Store has been serving exceptional cuisine that combines traditional techniques with
+               Late Night Food Bashundhara has been serving exceptional cuisine that combines traditional techniques with
               modern innovation. Our commitment to using only the finest ingredients and creating memorable dining
               experiences has made us a cornerstone of the culinary scene.
             </p>

@@ -11,7 +11,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Food store",
+  title: "Late Night Food Bashundhara",
   description: "Food store ",
 };
 
