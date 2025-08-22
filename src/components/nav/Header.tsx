@@ -73,7 +73,7 @@ export default function Header() {
           <div className="flex-shrink-0">
             <button onClick={() => scrollToSection("home")} className="text-2xl font-bold text-black hover:text-amber-400 transition-colors">
             <Image
-              src={logo}   alt="dkd" width={50} height={50}/> 
+              src="https://nyc3.digitaloceanspaces.com/smtech-space/files/d330a925-4680-435a-92b2-ecad3674ab9b.png"   alt="dkd" width={50} height={50}/> 
             </button>
           </div>
           

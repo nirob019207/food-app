@@ -72,7 +72,7 @@ export default function Sidebar() {
     <div className="flex px-5 flex-col h-full bg-white">
       <div className="px-6 pb-6 pt-4">
         <Link href="/" className="flex items-center gap-2">
-          <Image height={1000} width={1000} src={logo} alt="Logo" className="h-full w-full" />
+          <Image height={1000} width={1000} src="https://nyc3.digitaloceanspaces.com/smtech-space/files/d330a925-4680-435a-92b2-ecad3674ab9b.png" alt="Logo" className="h-full w-full" />
         </Link>
       </div>
       <nav className="flex justify-between h-full mb-10 flex-col">

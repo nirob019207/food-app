@@ -6,8 +6,9 @@ import Cookies from "js-cookie";
 
 export default function Page() {
   // Get token from cookies
-  const token = Cookies.get("token");
+  const token = Cookies.get("accessToken");
   let role = null;
+  console.log("dlf",token)
 
   if (token) {
     try {
@@ -17,7 +18,7 @@ export default function Page() {
       console.error("Invalid token:", error);
     }
   }
-
+console.log(role)
   // Render dashboard for ADMIN & SUPERADMIN only
   if (role === "ADMIN" || role === "SUPERADMIN") {
     return (
