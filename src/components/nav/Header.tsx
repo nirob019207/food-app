@@ -6,7 +6,6 @@ import { Menu, X, ShoppingCart, LayoutDashboard } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useAppSelector } from "@/redux/hooks"
 import Image from "next/image"
-import logo from "@/assets/logo.png" // Ensure this path is correct
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)

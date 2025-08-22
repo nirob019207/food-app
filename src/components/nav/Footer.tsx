@@ -1,7 +1,6 @@
 "use client"
 
 import Image from "next/image"
-import logo from "@/assets/logo.png" // Ensure this path is correct
 
 export default function Footer() {
   const scrollToSection = (sectionId: string) => {
