@@ -134,7 +134,7 @@ export default function Header() {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-black hover:text-amber-400 transition-colors p-2"
+                className="text-gray-800 hover:text-amber-400 transition-colors p-2"
                 aria-label="Toggle menu"
               >
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -153,7 +153,7 @@ export default function Header() {
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className="block px-3 py-2 text-base font-medium text-black hover:text-amber-400 hover:bg-white/10 transition-colors capitalize w-full text-left rounded-lg"
+                className="block px-3 py-2 text-base font-medium text-white hover:text-amber-400 hover:bg-white/10 transition-colors capitalize w-full text-left rounded-lg"
               >
                 {item}
               </button>
@@ -161,7 +161,7 @@ export default function Header() {
             {token ? (
               <button
                 onClick={handleDashboardClick}
-                className="block px-3 py-2 text-base font-medium text-black hover:text-amber-400 hover:bg-white/10 transition-colors w-full text-left rounded-lg"
+                className="block px-3 py-2 text-base font-medium text-white hover:text-amber-400 hover:bg-white/10 transition-colors w-full text-left rounded-lg"
               >
                 Dashboard
               </button>
@@ -169,13 +169,13 @@ export default function Header() {
               <>
                 <button
                   onClick={handleLoginClick}
-                  className="block px-3 py-2 text-base font-medium text-black hover:text-amber-400 hover:bg-white/10 transition-colors w-full text-left rounded-lg"
+                  className="block px-3 py-2 text-base font-medium text-white hover:text-amber-400 hover:bg-white/10 transition-colors w-full text-left rounded-lg"
                 >
                   Login
                 </button>
                 <button
                   onClick={handleRegisterClick}
-                  className="block px-3 py-2 text-base font-medium text-black hover:text-amber-400 hover:bg-white/10 transition-colors w-full text-left rounded-lg"
+                  className="block px-3 py-2 text-base font-medium text-white hover:text-amber-400 hover:bg-white/10 transition-colors w-full text-left rounded-lg"
                 >
                   Register
                 </button>
