@@ -66,7 +66,7 @@ export default function Menu() {
     );
 
     toast.success(`${item.name} added to cart!`, {
-      description: `$${item.price.toFixed(2)}`,
+      description: ` ৳ ${item.price.toFixed(2)}`,
       duration: 2000,
     });
   };
