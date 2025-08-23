@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from "@/redux/api/baseApi";
 
 export const authApi = baseApi.injectEndpoints({
@@ -57,10 +59,11 @@ export const authApi = baseApi.injectEndpoints({
     }),
     changePassword: builder.mutation({
       query: (data) => ({
-        url: "/auth/change-password",
-        method: "POST",
+        url: "/users/password", // Updated to match user.route.ts
+        method: "PATCH",
         body: data,
       }),
+      invalidatesTags: ["User"],
     }),
     getMe: builder.query({
       query: () => ({
@@ -77,11 +80,29 @@ export const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
+
+    getAllUsers: builder.query({
+      query: () => ({
+        url: "/users",
+        method: "GET",
+      }),
+      providesTags: ["User"],
+    }),
+    updateUserStatus: builder.mutation({
+      query: ({ id, status }: { id: number; status: any }) => ({
+        url: `/users/${id}/status`,
+        method: "PATCH",
+        body: { status },
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
 export const {
   useLoginMutation,
+  useGetAllUsersQuery,
+  useUpdateUserStatusMutation,  
   useRegisterMutation,
   useSocialAuthMutation,
   useForgotPasswordMutation,

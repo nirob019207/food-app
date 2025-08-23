@@ -53,6 +53,7 @@
 body {
   top: 0 !important;
   position: static !important;
+  background-color: white;
 }
 
 body .skiptranslate {

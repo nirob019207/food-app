@@ -20,6 +20,7 @@ import { jwtDecode } from 'jwt-decode';
 import { useDispatch } from 'react-redux';
 import { logout, setUser } from "@/redux/features/authSlice";
 import { useEffect, useState } from 'react';
+import { User, User2 } from "lucide-react";
 
 interface DecodedToken {
   id: number;
@@ -53,6 +54,10 @@ export default function Sidebar() {
   // Define navLinks with specific icons
   const navLinks = [
     { icon: <MdOutlineDashboard className="w-5 h-5" />, href: "/dashboard", label: "Dashboard", roles: ['ADMIN', 'SUPERADMIN'] },
+        { icon: <User className="w-5 h-5" />, href: "/allUser", label: "User", roles: ['ADMIN', 'SUPERADMIN'] },
+                { icon: <User2 className="w-5 h-5" />, href: "/profile", label: "Profile", roles: ['ADMIN', 'SUPERADMIN'] },
+
+
     { icon: <MdCategory className="w-5 h-5" />, href: "/category", label: "Categories", roles: ['ADMIN', 'SUPERADMIN'] },
     { icon: <MdFastfood className="w-5 h-5" />, href: "/product", label: "Products", roles: ['ADMIN', 'SUPERADMIN'] },
     { icon: <MdShoppingCart className="w-5 h-5" />, href: "/allOrder", label: "Orders", roles: ['ADMIN', 'SUPERADMIN'] },

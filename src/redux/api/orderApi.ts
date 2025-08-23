@@ -2,12 +2,13 @@ import { baseApi } from "@/redux/api/baseApi";
 
 export const orderApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getOrder: builder.query({
-      query: () => ({
+   getOrder: builder.query({
+      query: ({ page = 1, limit = 10, status }) => ({
         url: "/order",
         method: "GET",
+        params: { page, limit, status },
       }),
-      providesTags: ["User"],
+      providesTags: ["Order"],
     }),
     createOrder: builder.mutation({
       query: (credentials) => ({
@@ -38,13 +39,13 @@ export const orderApi = baseApi.injectEndpoints({
       }),
       providesTags: ["User"],
     }),
-    orderStatus: builder.mutation({
-      query: (data) => ({
-        url: `/order/status`,
+     updateOrderStatus: builder.mutation({
+      query: ({ orderId, status }: { orderId: number; status: string }) => ({
+        url: "/order/status",
         method: "PATCH",
-        body: data,
+        body: { orderId, status },
       }),
-      invalidatesTags: ["User"],
+      invalidatesTags: ["Order"],
     }),
   }),
 });
@@ -55,5 +56,5 @@ export const {
   useMyOrderQuery,
   useRevenueQuery,
   useDailyCountQuery,
-  useOrderStatusMutation,
+  useUpdateOrderStatusMutation,
 } = orderApi;

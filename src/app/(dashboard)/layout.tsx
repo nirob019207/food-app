@@ -14,7 +14,7 @@ export default function DashboardLayout({
 }>) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       {/* Mobile Nav */}
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild className="lg:hidden  fixed left-4 top-4 z-50">
@@ -34,9 +34,9 @@ export default function DashboardLayout({
       </div>
 
       {/* Main Content */}
-      <div className="lg:pl-64 h-screen overflow-y-hidden">
+      <div className="lg:pl-64  ">
         <Header />
-        <main className="p-4 border rounded-tl-xl h-full  overflow-y-auto  bg-white/90">
+        <main className="p-4 border rounded-tl-xl h-full  overflow-y-scroll  bg-white/90">
           {children}
         </main>
       </div>
