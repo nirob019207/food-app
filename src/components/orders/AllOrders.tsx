@@ -3,7 +3,7 @@
 'use client'
 
 import React, { useState } from 'react';
-import { useGetOrderQuery, useUpdateOrderStatusMutation } from '@/redux/api/orderApi';
+import { useGetOrderQuery, useGetOrderDetailsQuery, useUpdateOrderStatusMutation } from '@/redux/api/orderApi';
 import { toast } from 'sonner';
 
 export default function AllOrder() {
@@ -13,32 +13,40 @@ export default function AllOrder() {
   const { data: ordersResponse, isLoading } = useGetOrderQuery({ page, limit, status: activeTab });
   const [updateOrderStatus] = useUpdateOrderStatusMutation();
   
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [currentOrder, setCurrentOrder] = useState({
     id: null as number | null,
     fullName: '',
     phoneNumber: '',
     status: 'PENDING' as 'PENDING' | 'CONFIRMED' | 'DELIVERED' | 'DECLINED',
   });
+  const [selectedOrderId, setSelectedOrderId] = useState<number | null>(null);
+  const { data: orderDetails, isLoading: isDetailsLoading } = useGetOrderDetailsQuery(selectedOrderId, { skip: !selectedOrderId });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
 
   const orders = ordersResponse?.data || [];
   const totalPages = ordersResponse?.meta?.totalPages || 1;
 
-  const handleOpenModal = (order: any) => {
+  const handleOpenStatusModal = (order: any) => {
     setCurrentOrder({
       id: order.id,
       fullName: order.fullName,
       phoneNumber: order.phoneNumber,
       status: order.status,
     });
-    setIsModalOpen(true);
+    setIsStatusModalOpen(true);
     setError('');
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleOpenDetailsModal = (orderId: number) => {
+    setSelectedOrderId(orderId);
+    setIsDetailsModalOpen(true);
+  };
+
+  const handleCloseStatusModal = () => {
+    setIsStatusModalOpen(false);
     setCurrentOrder({
       id: null,
       fullName: '',
@@ -46,6 +54,11 @@ export default function AllOrder() {
       status: 'PENDING',
     });
     setError('');
+  };
+
+  const handleCloseDetailsModal = () => {
+    setIsDetailsModalOpen(false);
+    setSelectedOrderId(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -63,7 +76,7 @@ export default function AllOrder() {
         status: currentOrder.status,
       }).unwrap();
       toast.success('Order status updated successfully');
-      handleCloseModal();
+      handleCloseStatusModal();
     } catch (err) {
       console.error('Error updating order status:', err);
       setError('Failed to update order status');
@@ -81,7 +94,7 @@ export default function AllOrder() {
 
   const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setLimit(Number(e.target.value));
-    setPage(1); // Reset to first page when limit changes
+    setPage(1);
   };
 
   if (isLoading) {
@@ -135,9 +148,15 @@ export default function AllOrder() {
                 <td className="py-2 px-4 border-b">৳ {order.totalAmount.toFixed(2)}</td>
                 <td className="py-2 px-4 border-b">৳ {order.delivery_fee.toFixed(2)}</td>
                 <td className="py-2 px-4 border-b">{order.status}</td>
-                <td className="py-2 px-4 border-b">
+                <td className="py-2 px-4 border-b space-x-2">
                   <button
-                    onClick={() => handleOpenModal(order)}
+                    onClick={() => handleOpenDetailsModal(order.id)}
+                    className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                  >
+                    View Details
+                  </button>
+                  <button
+                    onClick={() => handleOpenStatusModal(order)}
                     className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"
                   >
                     Edit Status
@@ -190,7 +209,7 @@ export default function AllOrder() {
       </div>
 
       {/* Status Update Modal */}
-      {isModalOpen && (
+      {isStatusModalOpen && (
         <div className="fixed inset-0 bg-black/70 bg-opacity-50 flex z-50 items-center justify-center">
           <div className="bg-white p-6 rounded-lg w-full max-w-md">
             <h3 className="text-xl font-bold mb-4">Update Order Status</h3>
@@ -218,7 +237,7 @@ export default function AllOrder() {
               <div className="flex justify-end space-x-2">
                 <button
                   type="button"
-                  onClick={handleCloseModal}
+                  onClick={handleCloseStatusModal}
                   className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
                   disabled={isSubmitting}
                 >
@@ -233,6 +252,51 @@ export default function AllOrder() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Order Details Modal */}
+      {isDetailsModalOpen && (
+        <div className="fixed inset-0 bg-black/70 bg-opacity-50 flex z-50 items-center justify-center">
+          <div className="bg-white p-6 rounded-lg w-full max-w-lg">
+            <h3 className="text-xl font-bold mb-4">Order Details</h3>
+            {isDetailsLoading ? (
+              <p>Loading details...</p>
+            ) : orderDetails as any ? (
+              <div>
+                <p><strong>Order ID:</strong> {orderDetails.id}</p>
+                <p><strong>Customer:</strong> {orderDetails.fullName}</p>
+                <p><strong>Phone:</strong> {orderDetails.phoneNumber}</p>
+                <p><strong>Address:</strong> {orderDetails.address}</p>
+                <p><strong>Total Amount:</strong> ৳ {orderDetails.totalAmount.toFixed(2)}</p>
+                <p><strong>Delivery Fee:</strong> ৳ {orderDetails.delivery_fee.toFixed(2)}</p>
+                <p><strong>Status:</strong> {orderDetails.status}</p>
+                <p><strong>Order Date:</strong> {new Date(orderDetails.createdAt).toLocaleDateString()}</p>
+                <h4 className="text-lg font-semibold mt-4 mb-2">Order Items</h4>
+                <ul className="list-disc pl-5">
+                  {orderDetails.orderItems.map((item: any) => (
+                    <li key={item.id}>
+                      <p><strong>Product:</strong> {item.product.name}</p>
+                      <p><strong>Quantity:</strong> {item.quantity}</p>
+                      <p><strong>Price:</strong> ৳ {item.price.toFixed(2)}</p>
+                      <p><strong>Description:</strong> {item.product.description}</p>
+                      <p><strong>Stock:</strong> {item.product.stock}</p>
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex justify-end mt-4">
+                  <button
+                    onClick={handleCloseDetailsModal}
+                    className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <p>Failed to load order details</p>
+            )}
           </div>
         </div>
       )}

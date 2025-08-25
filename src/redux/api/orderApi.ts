@@ -8,7 +8,7 @@ export const orderApi = baseApi.injectEndpoints({
         method: "GET",
         params: { page, limit, status },
       }),
-      providesTags: ["Order"],
+        providesTags: ["Order","User",'Product'],
     }),
     createOrder: builder.mutation({
       query: (credentials) => ({
@@ -16,28 +16,28 @@ export const orderApi = baseApi.injectEndpoints({
         method: "POST",
         body: credentials,
       }),
-      invalidatesTags: ["User"],
+      invalidatesTags: ["Order","User",'Product'],
     }),
     myOrder: builder.query({
       query: () => ({
         url: `/order/my-orders`, // Include userId in the URL
         method: "GET", // Changed from DELETE to GET
       }),
-      providesTags: ["User"],
+        providesTags: ["Order","User",'Product'],
     }),
     revenue: builder.query({
       query: () => ({
         url: `/order/revenue`,
         method: "GET",
       }),
-      providesTags: ["User"],
+        providesTags: ["Order","User",'Product'],
     }),
     dailyCount: builder.query({
       query: () => ({
         url: `/order/daily-count`,
         method: "GET",
       }),
-      providesTags: ["User"],
+        providesTags: ["Order","User",'Product'],
     }),
      updateOrderStatus: builder.mutation({
       query: ({ orderId, status }: { orderId: number; status: string }) => ({
@@ -47,6 +47,14 @@ export const orderApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Order"],
     }),
+    getOrderDetails: builder.query({
+  query: (orderId) => ({
+    url: `/order/${orderId}`,
+    method: 'GET',
+  }),
+        providesTags: ["Order","User",'Product'],
+
+}),
   }),
 });
 
@@ -57,4 +65,5 @@ export const {
   useRevenueQuery,
   useDailyCountQuery,
   useUpdateOrderStatusMutation,
+  useGetOrderDetailsQuery,
 } = orderApi;

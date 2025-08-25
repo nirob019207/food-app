@@ -37,6 +37,8 @@ export default function AllProduct() {
   });
   const [error, setError] = useState('');
   const [imageFile, setImageFile] = useState(null);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
 
   const handleOpenModal = (product = {
     id: null,
@@ -86,7 +88,6 @@ export default function AllProduct() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     
-    // Validate required fields
     if (!currentProduct.name.trim() || !currentProduct.price || !currentProduct.stock || !currentProduct.categoryId) {
       setError('Name, price, stock, and category are required');
       return;
@@ -96,12 +97,11 @@ export default function AllProduct() {
     try {
       let imageUrl = currentProduct.image;
       
-      // Upload image if selected
       if (imageFile) {
         const formData = new FormData();
         formData.append('image', imageFile);
         const uploadResult = await uploadImage(formData).unwrap();
-        imageUrl = uploadResult?.url; // Assuming the upload API returns { data: { url: string } }
+        imageUrl = uploadResult?.url;
       }
 
       const productData = {
@@ -148,11 +148,35 @@ export default function AllProduct() {
     }
   };
 
+  const truncateDescription = (description: string) => {
+    const words = description.split(' ');
+    if (words.length > 10) {
+      return words.slice(0, 10).join(' ') + '...';
+    }
+    return description;
+  };
+
+  // Pagination logic
+  const totalProducts = products?.data?.length || 0;
+  const totalPages = Math.ceil(totalProducts / limit);
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+  const paginatedProducts = products?.data?.slice(startIndex, endIndex) || [];
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setPage(newPage);
+    }
+  };
+
+  const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setLimit(Number(e.target.value));
+    setPage(1); // Reset to first page when limit changes
+  };
+
   if (isProductsLoading || isCategoriesLoading) {
     return <div className="text-center py-4">Loading...</div>;
   }
-
-
 
   return (
     <div className="container mx-auto p-4">
@@ -182,7 +206,7 @@ export default function AllProduct() {
             </tr>
           </thead>
           <tbody>
-            {products?.data?.map((product: any) => (
+            {paginatedProducts.map((product: any) => (
               <tr key={product.id} className="hover:bg-gray-50">
                 <td className="py-2 px-4 border-b">{product.id}</td>
                 <td className="py-2 px-4 border-b">
@@ -193,7 +217,7 @@ export default function AllProduct() {
                   />
                 </td>
                 <td className="py-2 px-4 border-b">{product.name}</td>
-                <td className="py-2 px-4 border-b">{product.description}</td>
+                <td className="py-2 px-4 border-b">{truncateDescription(product.description)}</td>
                 <td className="py-2 px-4 border-b">৳ {product.price.toFixed(2)}</td>
                 <td className="py-2 px-4 border-b">{product.stock}</td>
                 <td className="py-2 px-4 border-b">
@@ -219,6 +243,46 @@ export default function AllProduct() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="flex justify-between items-center mt-4">
+        <div>
+          <p className="text-sm text-gray-700">
+            Showing page {page} of {totalPages}
+          </p>
+        </div>
+        <div className="flex items-center space-x-4">
+          <div>
+            <label className="text-sm font-medium text-gray-700 mr-2">Items per page:</label>
+            <select
+              value={limit}
+              onChange={handleLimitChange}
+              className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={50}>50</option>
+            </select>
+          </div>
+          <div className="flex space-x-2">
+            <button
+              onClick={() => handlePageChange(page - 1)}
+              disabled={page === 1}
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
+            >
+              Previous
+            </button>
+            <button
+              onClick={() => handlePageChange(page + 1)}
+              disabled={page === totalPages}
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Create/Edit Modal */}
