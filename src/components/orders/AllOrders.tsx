@@ -19,7 +19,7 @@ export default function AllOrder() {
     id: null as number | null,
     fullName: '',
     phoneNumber: '',
-    status: 'PENDING' as 'PENDING' | 'DELIVERED' | 'DECLINED',
+    status: 'PENDING' as 'PENDING' | 'CONFIRMED' | 'DELIVERED' | 'DECLINED',
   });
   const [error, setError] = useState('');
 
@@ -94,7 +94,7 @@ export default function AllOrder() {
 
       {/* Tabs */}
       <div className="flex mb-4">
-        {['PENDING', 'DELIVERED', 'DECLINED'].map(tab => (
+        {['PENDING', 'CONFIRMED', 'DELIVERED', 'DECLINED'].map(tab => (
           <button
             key={tab}
             onClick={() => {
@@ -205,10 +205,11 @@ export default function AllOrder() {
                 <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
                 <select
                   value={currentOrder.status}
-                  onChange={(e) => setCurrentOrder({ ...currentOrder, status: e.target.value as 'PENDING' | 'DELIVERED' | 'DECLINED' })}
+                  onChange={(e) => setCurrentOrder({ ...currentOrder, status: e.target.value as 'PENDING' | 'CONFIRMED' | 'DELIVERED' | 'DECLINED' })}
                   className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="PENDING">Pending</option>
+                  <option value="CONFIRMED">Confirmed</option>
                   <option value="DELIVERED">Delivered</option>
                   <option value="DECLINED">Declined</option>
                 </select>
