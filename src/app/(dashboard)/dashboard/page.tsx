@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 
 export default function Page() {
+  
   // Get token from cookies
   const token = Cookies.get("accessToken");
   let role = null;

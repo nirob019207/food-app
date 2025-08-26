@@ -8,7 +8,14 @@ export const orderApi = baseApi.injectEndpoints({
         method: "GET",
         params: { page, limit, status },
       }),
-        providesTags: ["Order","User",'Product'],
+      providesTags: (result, error, { status }) =>
+        result
+          ? [
+              ...result.data.map(({ id }: { id: number }) => ({ type: "Order", id })),
+              { type: "Order", id: "LIST" },
+              { type: "Order", id: status || "ALL" }, // Tag for specific status
+            ]
+          : [{ type: "Order", id: "LIST" }, { type: "Order", id: status || "ALL" }],
     }),
     createOrder: builder.mutation({
       query: (credentials) => ({
@@ -16,7 +23,10 @@ export const orderApi = baseApi.injectEndpoints({
         method: "POST",
         body: credentials,
       }),
-      invalidatesTags: ["Order","User",'Product'],
+      invalidatesTags: (result, error, credentials) => [
+        { type: "Order", id: "LIST" },
+        { type: "Order", id: credentials.status || "PENDING" }, // Invalidate the status of the new order
+      ],
     }),
     myOrder: builder.query({
       query: () => ({
@@ -45,7 +55,10 @@ export const orderApi = baseApi.injectEndpoints({
         method: "PATCH",
         body: { orderId, status },
       }),
-      invalidatesTags: ["Order"],
+     invalidatesTags: (result, error, { orderId }) => [
+        { type: "Order", id: orderId },
+        { type: "Order", id: "LIST" },
+      ],
     }),
     getOrderDetails: builder.query({
   query: (orderId) => ({
