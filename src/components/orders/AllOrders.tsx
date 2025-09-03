@@ -20,7 +20,7 @@ export default function AllOrder() {
     id: null as number | null,
     fullName: '',
     phoneNumber: '',
-    status: 'PENDING' as 'PENDING' | 'CONFIRMED' | 'DELIVERED' | 'DECLINED',
+    status: 'PENDING' as 'PENDING' | 'DELIVERED' | 'DECLINED',
   });
   const [selectedOrderId, setSelectedOrderId] = useState<number | null>(null);
   const { data: orderDetails, isLoading: isDetailsLoading } = useGetOrderDetailsQuery(selectedOrderId, { skip: !selectedOrderId });
@@ -109,7 +109,7 @@ export default function AllOrder() {
 
       {/* Tabs */}
       <div className="flex mb-4">
-        {['PENDING', 'CONFIRMED', 'DELIVERED', 'DECLINED'].map(tab => (
+        {['PENDING',  'DELIVERED', 'DECLINED'].map(tab => (
           <button
             key={tab}
             onClick={() => {
@@ -226,12 +226,11 @@ export default function AllOrder() {
                 <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
                 <select
                   value={currentOrder.status}
-                  onChange={(e) => setCurrentOrder({ ...currentOrder, status: e.target.value as 'PENDING' | 'CONFIRMED' | 'DELIVERED' | 'DECLINED' })}
+                  onChange={(e) => setCurrentOrder({ ...currentOrder, status: e.target.value as 'PENDING' |  'DELIVERED' | 'DECLINED' })}
                   className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="PENDING">Pending</option>
-                  <option value="CONFIRMED">Confirmed</option>
-                  <option value="DELIVERED">Delivered</option>
+                  <option value="DELIVERED">Confirmed</option>
                   <option value="DECLINED">Declined</option>
                 </select>
               </div>
@@ -277,7 +276,7 @@ export default function AllOrder() {
           <p className="text-gray-600"><strong className="text-gray-800">Order ID:</strong> {orderDetails?.data?.id}</p>
           <p className="text-gray-600"><strong className="text-gray-800">Customer:</strong> {orderDetails?.data?.fullName}</p>
           <p className="text-gray-600"><strong className="text-gray-800">Phone:</strong> {orderDetails?.data?.phoneNumber}</p>
-          <p className="text-gray-600"><strong className="text-gray-800">Address:</strong> {orderDetails?.data?.address}</p>
+          <p className="text-gray-600"><strong className="text-gray-800">Adress:</strong> {orderDetails?.data?.address}</p>
           <p className="text-gray-600"><strong className="text-gray-800">Total Amount:</strong> ৳ {orderDetails?.data?.totalAmount?.toFixed(2)}</p>
           <p className="text-gray-600"><strong className="text-gray-800">Delivery Fee:</strong> ৳ {orderDetails?.data?.delivery_fee?.toFixed(2)}</p>
           <p className="text-gray-600"><strong className="text-gray-800">Status:</strong>
@@ -285,7 +284,15 @@ export default function AllOrder() {
               {orderDetails?.data?.status}
             </span>
           </p>
-          <p className="text-gray-600"><strong className="text-gray-800">Order Date:</strong> {new Date(orderDetails?.data?.createdAt)?.toLocaleDateString()}</p>
+<p className="text-gray-600">
+  <strong className="text-gray-800">Order Date:</strong>{" "}
+  {new Date(orderDetails?.data?.createdAt)?.toLocaleDateString()}{" "}
+  {new Date(orderDetails?.data?.createdAt)?.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  })}
+</p>
         </div>
         <div>
           <h4 className="text-lg font-semibold text-gray-800 mt-6 mb-4">Order Items</h4>

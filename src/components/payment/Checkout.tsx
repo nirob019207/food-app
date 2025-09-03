@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { clearCart } from "@/redux/features/cartSlice"
 import { useCreateOrderMutation } from "@/redux/api/orderApi"
@@ -25,6 +26,9 @@ const paymentMethods = [
   },
 ]
 
+// Generate blocks A to Z
+const blocks = Array.from({ length: 26 }, (_, i) => `Block ${String.fromCharCode(65 + i)}`)
+
 interface DecodedToken {
   userId: string;
   [key: string]: any;
@@ -37,6 +41,7 @@ export default function CheckoutPage() {
   const [createOrder, { isLoading }] = useCreateOrderMutation()
   const [formData, setFormData] = useState({
     fullName: "",
+    streetAddress: "", // This will store the selected block (e.g., "Block A")
     address: "",
     phoneNumber: "",
   })
@@ -52,9 +57,16 @@ export default function CheckoutPage() {
     }))
   }
 
+  const handleBlockChange = (value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      streetAddress: value,
+    }))
+  }
+
   const handlePlaceOrder = async () => {
     // Validate form fields
-    if (!formData.fullName.trim() || !formData.address.trim() || !formData.phoneNumber.trim()) {
+    if (!formData.fullName.trim() || !formData.streetAddress.trim() || !formData.address.trim() || !formData.phoneNumber.trim()) {
       toast.error("Please fill in all required fields")
       return
     }
@@ -64,7 +76,7 @@ export default function CheckoutPage() {
       return
     }
 
-    // Prepare order data (excluding delivery fee)
+    // Prepare order data, concatenating streetAddress (block) and address
     const orderData: {
       fullName: string;
       address: string;
@@ -73,7 +85,7 @@ export default function CheckoutPage() {
       userId?: string;
     } = {
       fullName: formData.fullName.trim(),
-      address: formData.address.trim(),
+      address: `${formData.streetAddress.trim()}, ${formData.address.trim()}`,
       phoneNumber: formData.phoneNumber.trim(),
       items: items.map((item: any) => ({
         productId: item.id,
@@ -202,13 +214,33 @@ export default function CheckoutPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="address">Address *</Label>
+                  <Label htmlFor="streetAddress">Block *</Label>
+                  <Select
+                    name="streetAddress"
+                    value={formData.streetAddress}
+                    onValueChange={handleBlockChange}
+                    required
+                  >
+                    <SelectTrigger id="streetAddress" className="mt-1">
+                      <SelectValue placeholder="Select a block" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {blocks.map((block) => (
+                        <SelectItem key={block} value={block}>
+                          {block}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="address">Additional Adress(such as Road No and house No) *</Label>
                   <Input
                     id="address"
                     name="address"
                     value={formData.address}
                     onChange={handleInputChange}
-                    placeholder="Enter your delivery address"
+                    placeholder="Enter city and additional details"
                     required
                     className="mt-1"
                   />
