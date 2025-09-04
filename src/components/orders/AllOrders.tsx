@@ -109,7 +109,7 @@ export default function AllOrder() {
 
       {/* Tabs */}
       <div className="flex mb-4">
-        {['PENDING',  'DELIVERED', 'DECLINED'].map(tab => (
+        {['PENDING',  'CONFIRMED', 'DECLINED'].map(tab => (
           <button
             key={tab}
             onClick={() => {
