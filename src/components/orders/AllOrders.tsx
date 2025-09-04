@@ -109,7 +109,7 @@ export default function AllOrder() {
 
       {/* Tabs */}
       <div className="flex mb-4">
-        {['PENDING',  'CONFIRMED', 'DECLINED'].map(tab => (
+        {['PENDING',  'DELEVERD', 'DECLINED'].map(tab => (
           <button
             key={tab}
             onClick={() => {
@@ -120,7 +120,7 @@ export default function AllOrder() {
               activeTab === tab ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
             } hover:bg-blue-400 hover:text-white`}
           >
-            {tab}
+      {tab === 'PENDING' ? 'Pending' : tab === 'DELIVERED' ? 'Confirmed' : 'Declined'}
           </button>
         ))}
       </div>
