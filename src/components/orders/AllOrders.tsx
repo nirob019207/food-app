@@ -120,7 +120,7 @@ export default function AllOrder() {
               activeTab === tab ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
             } hover:bg-blue-400 hover:text-white`}
           >
-      {tab === 'PENDING' ? 'Pending' : tab === 'DELIVERED' ? 'Confirmed' : 'Declined'}
+      {tab === 'PENDING' ? 'Pending' : tab === 'DELEVERD' ? 'Confirmed' : 'Declined'}
           </button>
         ))}
       </div>
